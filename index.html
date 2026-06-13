@@ -213,17 +213,22 @@
   .price-note{text-align:center;color:var(--muted);font-size:14px;margin-top:30px;max-width:60ch;margin-left:auto;margin-right:auto}
 
   /* STEPS */
-  .steps{background:radial-gradient(120% 140% at 0% 0%,#1B2440,#0E0E10 60%);color:#fff;border-radius:28px;padding:64px 48px;position:relative;overflow:hidden}
-  .steps::after{content:'';position:absolute;top:-80px;right:-80px;width:360px;height:360px;background:radial-gradient(circle,rgba(45,91,255,.35),transparent 65%)}
+  .steps{background:radial-gradient(120% 140% at 0% 0%,#1a223f,#0d0e12 70%);color:#fff;border-radius:32px;padding:72px 56px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
+  .steps::before{content:'';position:absolute;top:-150px;right:-150px;width:500px;height:500px;background:radial-gradient(circle,rgba(67,97,238,0.25),transparent 70%);pointer-events:none}
+  .steps::after{content:'';position:absolute;bottom:-150px;left:-150px;width:400px;height:400px;background:radial-gradient(circle,rgba(138,160,255,0.12),transparent 70%);pointer-events:none}
   .steps .inner{position:relative;z-index:2}
-  .steps .eyebrow{color:#8AA0FF}
-  .steps h2{color:#fff}
-  .steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
-  .step{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:30px 28px;transition:transform .22s,background .22s}
-  .step:hover{transform:translateY(-5px);background:rgba(255,255,255,.09)}
-  .step .n{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:11px;background:rgba(138,160,255,.18);color:#8AA0FF;font-size:15px;font-weight:700;margin-bottom:18px}
-  .step h3{font-size:20px;font-weight:700;margin-bottom:8px}
-  .step p{color:#B8B8C0;font-size:15px}
+  .steps .eyebrow{color:#8AA0FF;letter-spacing:0.12em;font-size:13px;font-weight:700;text-transform:uppercase}
+  .steps h2{color:#fff;margin-top:10px}
+  .steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:56px}
+  .step{background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.07);border-radius:22px;padding:36px 32px;transition:transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),border-color 0.4s,background-color 0.4s,box-shadow 0.4s;position:relative;overflow:hidden}
+  .step:hover{transform:translateY(-8px);background:rgba(255,255,255,0.06);border-color:rgba(138,160,255,0.35);box-shadow:0 20px 40px rgba(13,14,18,0.3), 0 0 24px rgba(45,91,255,0.1)}
+  .step .n-badge{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,rgba(138,160,255,0.2),rgba(67,97,238,0.08));color:#8AA0FF;border:1px solid rgba(138,160,255,0.15);margin-bottom:24px;transition:transform 0.4s ease}
+  .step:hover .n-badge{transform:scale(1.1) rotate(5deg);background:linear-gradient(135deg,rgba(138,160,255,0.3),rgba(67,97,238,0.15));color:#fff}
+  .step .n-badge svg{width:22px;height:22px}
+  .step h3{font-size:21px;font-weight:600;margin-bottom:12px;color:#fff;letter-spacing:-0.01em}
+  .step p{color:#A9AEC1;font-size:15.5px;line-height:1.6;font-weight:400}
+  .step .bg-num{position:absolute;bottom:-10px;right:15px;font-size:120px;font-weight:900;color:rgba(255,255,255,0.02);line-height:1;pointer-events:none;user-select:none;transition:color 0.4s}
+  .step:hover .bg-num{color:rgba(138,160,255,0.05)}
 
   /* DIPLOMA BANNER */
   .diploma{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;background:linear-gradient(135deg,var(--accent-soft),#F6F7F9);border:1px solid var(--line);border-radius:28px;padding:56px;margin-top:8px}
@@ -526,11 +531,32 @@
   <div class="steps reveal">
     <div class="inner">
       <div class="eyebrow">Kako poteka</div>
-      <h2 style="max-width:16ch">Trije koraki do gotovega izdelka.</h2>
+      <h2 style="max-width:18ch; font-family:'Fraunces', serif; font-weight:600; font-size:clamp(32px, 4vw, 42px); line-height:1.15; letter-spacing:-0.01em;">Trije koraki do <span style="background:linear-gradient(135deg, #8AA0FF, #C4D1FF); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">gotovega izdelka</span>.</h2>
       <div class="steps-grid">
-        <div class="step"><div class="n">01</div><h3>Pošljete ali prinesete</h3><p>Datoteko pošljete na e-pošto ali prinesete na USB ključku.</p></div>
-        <div class="step"><div class="n">02</div><h3>Potrdimo izvedbo</h3><p>Povemo ceno in rok. Pri večjih naročilih pripravimo tudi ogled.</p></div>
-        <div class="step"><div class="n">03</div><h3>Prevzem</h3><p>Natisnjen, zvezan ali plastificiran izdelek prevzamete pri nas.</p></div>
+        <div class="step">
+          <div class="n-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          </div>
+          <h3>Pošljete ali prinesete</h3>
+          <p>Datoteko pošljete na e-pošto ali prinesete na USB ključku.</p>
+          <div class="bg-num">1</div>
+        </div>
+        <div class="step">
+          <div class="n-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3>Potrdimo izvedbo</h3>
+          <p>Povemo ceno in rok. Pri večjih naročilih pripravimo tudi ogled.</p>
+          <div class="bg-num">2</div>
+        </div>
+        <div class="step">
+          <div class="n-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+          </div>
+          <h3>Prevzem</h3>
+          <p>Natisnjen, zvezan ali plastificiran izdelek prevzamete pri nas.</p>
+          <div class="bg-num">3</div>
+        </div>
       </div>
     </div>
   </div>
