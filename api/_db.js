@@ -1,4 +1,10 @@
-// Skupna povezava na Neon (HTTP serverless driver — primeren za Vercel funkcije)
-import { neon } from '@neondatabase/serverless';
+import postgres from 'postgres';
 
-export const sql = neon(process.env.DATABASE_URL);
+if (!process.env.DATABASE_URL) {
+  throw new Error('No database connection string configured. Set DATABASE_URL.');
+}
+
+export const sql = postgres(process.env.DATABASE_URL, {
+  ssl: 'require',
+  max: 1,
+});

@@ -1,16 +1,16 @@
 // Ustvari tabele in napolni začetne podatke v Neon bazi.
 // Zagon:  node --env-file=.env.local db/apply.mjs
-import { neon } from '@neondatabase/serverless';
+import postgres from 'postgres';
 import { readFile } from 'node:fs/promises';
 
-const url = process.env.DATABASE_URL;
-if (!url) { console.error('Manjka DATABASE_URL (nastavi v .env.local).'); process.exit(1); }
-const sql = neon(url);
+const url = process.env.DIRECT_URL || process.env.DATABASE_URL;
+if (!url) { console.error('Manjka DIRECT_URL ali DATABASE_URL (nastavi v .env.local).'); process.exit(1); }
+const sql = postgres(url, { ssl: 'require' });
 
 // 1) Shema — izvedi vsak stavek posebej
 const schema = await readFile(new URL('./schema.sql', import.meta.url), 'utf8');
 for (const stmt of schema.split(';').map(s => s.trim()).filter(Boolean)) {
-  await sql.query(stmt);
+  await sql.unsafe(stmt);
 }
 console.log('✓ Tabele ustvarjene');
 
@@ -72,4 +72,6 @@ if (na === 0) {
 }
 
 console.log('\nKončano. Baza je pripravljena.');
+await sql.end();
 process.exit(0);
+
