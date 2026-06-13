@@ -308,12 +308,14 @@
   .akcija-bar b{font-weight:800}
   .akcija-bar .vd{opacity:.85;font-weight:500}
   /* NOVICE (dinamično iz baze) */
-  .novice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px}
-  .novica{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;transition:transform .2s,box-shadow .2s}
-  .novica:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
-  .novica .datum{font-size:13px;color:var(--accent);font-weight:600;margin-bottom:10px}
-  .novica h3{font-family:'Fraunces',serif;font-size:21px;font-weight:600;margin-bottom:8px}
-  .novica p{color:var(--muted);font-size:15px;white-space:pre-wrap}
+  .novice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px;align-items:stretch}
+  .novica{background:linear-gradient(180deg,#fff,#FAFBFF);border:1px solid var(--line);border-radius:18px;padding:28px 26px 26px;min-height:230px;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s,border-color .2s}
+  .novica::before{content:'';position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--accent),#8AA0FF);transform:scaleX(.35);transform-origin:left;transition:transform .25s}
+  .novica:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);border-color:rgba(45,91,255,.24)}
+  .novica:hover::before{transform:scaleX(1)}
+  .novica .datum{display:inline-flex;align-items:center;background:var(--accent-soft);border:1px solid rgba(45,91,255,.12);border-radius:999px;padding:5px 10px;font-size:12.5px;color:var(--accent);font-weight:700;margin-bottom:16px}
+  .novica h3{font-family:'Fraunces',serif;font-size:22px;font-weight:600;line-height:1.16;margin-bottom:10px}
+  .novica p{color:var(--muted);font-size:15px;line-height:1.65;white-space:pre-wrap}
   @media(max-width:900px){.novice-grid{grid-template-columns:1fr}}
 </style>
 </head>
