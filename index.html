@@ -76,7 +76,7 @@
   /* layer 0: optional real video — swap the <source> to use a real clip */
   .cine-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.5}
   /* prava hero fotografija kot osnovni sloj */
-  .cine-photo{position:absolute;inset:0;z-index:0;background:url('slike/hero.jpg') center/cover;opacity:.55;transform:scale(1.18);will-change:transform}
+  .cine-photo{position:absolute;inset:0;z-index:0;background:url('slike/hero.webp') center/cover;opacity:.55;transform:scale(1.18);will-change:transform}
   /* layer 1: animated gradient mesh (works with zero assets) */
   .cine-mesh{position:absolute;inset:-20%;z-index:1;
     background:
@@ -171,12 +171,12 @@
 
   /* SHOWCASE GALLERY */
   .gallery{padding-top:0}
-  .gal-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:16px;margin-top:48px}
-  .tile{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);display:flex;align-items:flex-end;padding:24px;cursor:pointer;isolation:isolate;transition:transform .2s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d}
-  /* sem vstavi pravo fotografijo: background-image:url('slike/diploma.jpg');background-size:cover */
+  .gal-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:230px;grid-auto-flow:dense;gap:18px;margin-top:48px}
+  .tile{position:relative;min-height:210px;border-radius:18px;overflow:hidden;border:1px solid var(--line);display:flex;align-items:flex-end;padding:24px;cursor:pointer;isolation:isolate;transition:transform .2s cubic-bezier(.2,.7,.2,1),box-shadow .2s;transform-style:preserve-3d;background:#101421}
   .tile .ph{position:absolute;inset:0;z-index:-2;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
-  .tile:hover .ph{transform:scale(1.08)}
-  .tile::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(8,11,22,.78),rgba(8,11,22,.15) 55%,transparent)}
+  .tile:hover{box-shadow:var(--shadow-md)}
+  .tile:hover .ph{transform:scale(1.07)}
+  .tile::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(8,11,22,.82),rgba(8,11,22,.28) 54%,rgba(8,11,22,.04))}
   .tile .ico{position:absolute;top:22px;left:22px;width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.16);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;color:#fff}
   .tile .ico svg{width:22px;height:22px}
   .tile .cap{position:relative;color:#fff}
@@ -184,14 +184,14 @@
   .tile .cap span{font-size:13.5px;color:rgba(255,255,255,.8)}
   .tile .shine{position:absolute;inset:0;z-index:1;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.18) 50%,transparent 60%);transform:translateX(-120%);transition:transform .7s}
   .tile:hover .shine{transform:translateX(120%)}
-  .ph1{background:url('slike/diplome.png') center/cover}
-  .ph2{background:url('slike/plakati.jpg') center/cover}
-  .ph3{background:url('slike/barvni-tisk.jpg') center/cover}
-  .ph4{background:url('slike/graviranje.jpg') center/cover}
-  .ph5{background:url('slike/plastificiranje.jpg') center/cover}
-  .ph6{background:url('slike/letaki.jpg') center/cover}
-  .t-wide{grid-column:span 2}
-  .t-tall{grid-row:span 2}
+  .ph1{background:url('slike/diplome.webp') center/cover}
+  .ph2{background:url('slike/plakati.webp') center/cover}
+  .ph3{background:url('slike/barvni-tisk.webp') center/cover}
+  .ph4{background:url('slike/graviranje.webp') center/cover}
+  .ph5{background:url('slike/plastificiranje.webp') center/cover}
+  .ph6{background:url('slike/letaki.webp') center/cover}
+  .t-hero{grid-column:span 2;grid-row:span 2}
+  .t-wide,.t-mid,.t-tall,.t-finish,.t-flyer{grid-column:span 1;grid-row:span 1}
 
   /* PRICING */
   .pricing{padding-top:0}
@@ -266,8 +266,9 @@
   @media (max-width:900px){
     .quick-grid{grid-template-columns:repeat(2,1fr)}
     .services-grid{grid-template-columns:repeat(2,1fr)}
-    .gal-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:170px}
-    .t-wide{grid-column:span 2}.t-tall{grid-row:span 1}
+    .gal-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:210px}
+    .t-hero,.t-wide,.t-mid,.t-tall,.t-finish,.t-flyer{grid-column:span 1;grid-row:span 1}
+    .t-hero,.t-wide,.t-flyer{grid-column:span 2}
     .price-grid{grid-template-columns:1fr;gap:18px}
     .steps-grid{grid-template-columns:1fr;gap:16px}
     .diploma{grid-template-columns:1fr;padding:36px}
@@ -280,7 +281,7 @@
     .quick-grid{grid-template-columns:1fr}
     .services-grid{grid-template-columns:1fr}
     .gal-grid{grid-template-columns:1fr;grid-auto-rows:200px}
-    .t-wide{grid-column:span 1}
+    .t-hero,.t-wide,.t-mid,.t-tall,.t-finish,.t-flyer{grid-column:span 1;grid-row:span 1}
     .steps{padding:44px 28px}
     .sec{padding:64px 0}
     .cine-meta{gap:28px}
@@ -441,17 +442,17 @@
     <p class="lead">Nekaj primerov tega, kar najpogosteje ustvarimo. Vsak izdelek prilagodimo vašim željam in formatu.</p>
   </div>
   <div class="gal-grid stagger">
-    <div class="tile t-wide t-tall">
+    <div class="tile t-hero">
       <div class="ph ph1"></div><div class="shine"></div>
       <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
       <div class="cap"><b>Vezane diplomske naloge</b><span>Trda vezava z zlatotiskom</span></div>
     </div>
-    <div class="tile">
+    <div class="tile t-mid">
       <div class="ph ph2"></div><div class="shine"></div>
       <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 3h18v6H3zM3 13h10v8H3zM17 13h4v8h-4z"/></svg></div>
       <div class="cap"><b>Plakati</b><span>do A3 in večji</span></div>
     </div>
-    <div class="tile">
+    <div class="tile t-wide">
       <div class="ph ph3"></div><div class="shine"></div>
       <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h6"/></svg></div>
       <div class="cap"><b>Barvni tisk</b><span>zvest predlogi</span></div>
@@ -461,12 +462,12 @@
       <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 19l7-7 3 3-7 7-3-3zM18 13l-1.5-7.5L2 2l3.5 14.5L13 18z"/></svg></div>
       <div class="cap"><b>Graviranje in darila</b><span>les, steklo, kovina</span></div>
     </div>
-    <div class="tile">
+    <div class="tile t-finish">
       <div class="ph ph5"></div><div class="shine"></div>
       <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg></div>
       <div class="cap"><b>Plastificiranje</b><span>trpežna zaščita</span></div>
     </div>
-    <div class="tile">
+    <div class="tile t-flyer">
       <div class="ph ph6"></div><div class="shine"></div>
       <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 22a3 3 0 0 1-3-3c0-2 3-3 3-7"/></svg></div>
       <div class="cap"><b>Letaki in vabila</b><span>oblikovanje + tisk</span></div>
