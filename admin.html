@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Admin — Bela linija</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--accent:#2D5BFF;--accent-dark:#1E40DB;--ink:#0E0E10;--muted:#6B6B70;--line:#E6E6E8;--gray:#F6F7F9;--ok:#16A34A;--err:#DC2626}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',sans-serif;background:var(--gray);color:var(--ink);line-height:1.5}
+  .hidden{display:none!important}
+  input,textarea,select,button{font-family:inherit;font-size:14px}
+  .btn{border:none;border-radius:9px;padding:10px 16px;font-weight:600;cursor:pointer;transition:background .2s,opacity .2s}
+  .btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:var(--accent-dark)}
+  .btn-ghost{background:#fff;border:1px solid var(--line);color:var(--ink)}.btn-ghost:hover{border-color:var(--ink)}
+  .btn-danger{background:#fff;border:1px solid var(--line);color:var(--err)}.btn-danger:hover{background:#FEF2F2;border-color:var(--err)}
+  .btn-sm{padding:6px 11px;font-size:13px}
+
+  /* LOGIN */
+  .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+  .login{background:#fff;border:1px solid var(--line);border-radius:18px;padding:38px;width:100%;max-width:380px;box-shadow:0 18px 50px rgba(16,24,40,.1)}
+  .login .mark{width:42px;height:42px;border-radius:11px;background:var(--accent);position:relative;margin-bottom:20px}
+  .login .mark::after{content:'';position:absolute;inset:10px;border:2px solid #fff;border-radius:3px}
+  .login h1{font-size:22px;font-weight:800;margin-bottom:4px}
+  .login p{color:var(--muted);font-size:14px;margin-bottom:24px}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+  .field input,.field textarea,.field select{width:100%;border:1px solid var(--line);border-radius:9px;padding:11px 13px;background:#fff}
+  .field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--accent)}
+  .msg{font-size:13px;margin-top:12px;min-height:18px}
+  .msg.err{color:var(--err)}.msg.ok{color:var(--ok)}
+
+  /* APP */
+  header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+  .head{max-width:1000px;margin:0 auto;padding:0 20px;height:64px;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800}
+  .brand .dot{width:24px;height:24px;border-radius:7px;background:var(--accent);position:relative}
+  .brand .dot::after{content:'';position:absolute;inset:6px;border:2px solid #fff;border-radius:2px}
+  .tabs{max-width:1000px;margin:0 auto;padding:16px 20px 0;display:flex;gap:6px;flex-wrap:wrap}
+  .tab{padding:9px 16px;border-radius:9px 9px 0 0;font-weight:600;font-size:14px;cursor:pointer;color:var(--muted);border:1px solid transparent;border-bottom:none}
+  .tab.active{background:#fff;color:var(--ink);border-color:var(--line)}
+  main{max-width:1000px;margin:0 auto;padding:24px 20px 80px}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:0 14px 14px 14px;padding:26px}
+  .panel h2{font-size:18px;font-weight:800;margin-bottom:4px}
+  .panel .hint{color:var(--muted);font-size:14px;margin-bottom:22px}
+  .row-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:18px}
+
+  table{width:100%;border-collapse:collapse}
+  th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding:8px 10px;border-bottom:2px solid var(--line)}
+  td{padding:6px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+  td input,td select{width:100%;border:1px solid transparent;border-radius:7px;padding:8px 9px;background:transparent}
+  td input:focus,td select:focus{outline:none;border-color:var(--accent);background:#fff}
+  td input:hover,td select:hover{background:var(--gray)}
+  .cat-head{font-weight:800;font-size:13px;color:var(--accent);padding:18px 10px 6px;text-transform:uppercase;letter-spacing:.04em}
+
+  .card-item{border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
+  .card-item .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .card-item textarea{min-height:70px;resize:vertical}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px}
+  .pill.on{background:#DCFCE7;color:#166534}.pill.off{background:#F3F4F6;color:#6B7280}
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 20px;border-radius:11px;font-weight:600;font-size:14px;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;z-index:50}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
+  .toast.err{background:var(--err)}
+  @media (max-width:600px){.card-item .grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- PRIJAVA -->
+<div class="login-wrap" id="loginView">
+  <form class="login" id="loginForm">
+    <div class="mark"></div>
+    <h1>Admin · Bela linija</h1>
+    <p>Vpišite geslo za urejanje vsebine.</p>
+    <div class="field">
+      <label>Geslo</label>
+      <input type="password" id="geslo" autocomplete="current-password" required>
+    </div>
+    <button class="btn btn-primary" style="width:100%" type="submit">Prijava</button>
+    <div class="msg err" id="loginMsg"></div>
+  </form>
+</div>
+
+<!-- APLIKACIJA -->
+<div id="appView" class="hidden">
+  <header>
+    <div class="head">
+      <div class="brand"><span class="dot"></span>Bela linija · Admin</div>
+      <button class="btn btn-ghost btn-sm" id="logout">Odjava</button>
+    </div>
+  </header>
+  <div class="tabs">
+    <div class="tab active" data-tab="nastavitve">Nastavitve</div>
+    <div class="tab" data-tab="cene">Cene</div>
+    <div class="tab" data-tab="novice">Novice</div>
+    <div class="tab" data-tab="akcije">Akcije</div>
+  </div>
+  <main>
+    <!-- NASTAVITVE -->
+    <section class="panel" data-panel="nastavitve">
+      <h2>Osnovni podatki</h2>
+      <p class="hint">Kontaktni podatki, ki se prikažejo na strani.</p>
+      <div class="field"><label>Ime podjetja</label><input id="n_ime_podjetja"></div>
+      <div class="field"><label>E-pošta</label><input id="n_email" type="email"></div>
+      <div class="field"><label>Telefon</label><input id="n_telefon"></div>
+      <div class="field"><label>Naslov</label><input id="n_naslov"></div>
+      <div class="field"><label>Delovni čas</label><input id="n_urnik"></div>
+      <div class="row-actions"><button class="btn btn-primary" id="saveNast">Shrani podatke</button></div>
+    </section>
+
+    <!-- CENE -->
+    <section class="panel hidden" data-panel="cene">
+      <h2>Cenik</h2>
+      <p class="hint">Uredi ceno neposredno v polju. Spremembe shrani s klikom na »Shrani vrstico«.</p>
+      <div id="ceneWrap"></div>
+      <div class="row-actions"><button class="btn btn-ghost" id="addCena">+ Nova postavka</button></div>
+    </section>
+
+    <!-- NOVICE -->
+    <section class="panel hidden" data-panel="novice">
+      <h2>Novice</h2>
+      <p class="hint">Objave, ki se prikažejo v razdelku Novice na strani.</p>
+      <div id="noviceWrap"></div>
+      <div class="row-actions"><button class="btn btn-ghost" id="addNovica">+ Nova novica</button></div>
+    </section>
+
+    <!-- AKCIJE -->
+    <section class="panel hidden" data-panel="akcije">
+      <h2>Akcije in popusti</h2>
+      <p class="hint">Aktivne akcije se prikažejo kot pasica na vrhu strani.</p>
+      <div id="akcijeWrap"></div>
+      <div class="row-actions"><button class="btn btn-ghost" id="addAkcija">+ Nova akcija</button></div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const KAT = { tisk:'Tisk & kopiranje', vezava:'Vezava nalog', dodelava:'Dodelava & ostalo' };
+let token = localStorage.getItem('bl_token') || '';
+
+const $ = s => document.querySelector(s);
+function toast(msg, err){ const t=$('#toast'); t.textContent=msg; t.className='toast show'+(err?' err':''); setTimeout(()=>t.className='toast',2200); }
+
+async function api(path, opts={}){
+  opts.headers = Object.assign({'Content-Type':'application/json'}, opts.headers||{});
+  if(token) opts.headers.Authorization = 'Bearer '+token;
+  const r = await fetch(path, opts);
+  if(r.status===401){ logout(); throw new Error('Seja je potekla'); }
+  if(!r.ok){ const e=await r.json().catch(()=>({})); throw new Error(e.error||('Napaka '+r.status)); }
+  return r.status===204 ? null : r.json();
+}
+
+/* ---- PRIJAVA ---- */
+$('#loginForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  $('#loginMsg').textContent='';
+  try{
+    const r = await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({geslo:$('#geslo').value})});
+    if(!r.ok) throw new Error((await r.json()).error||'Napaka');
+    token = (await r.json()).token;
+    localStorage.setItem('bl_token', token);
+    showApp();
+  }catch(err){ $('#loginMsg').textContent = err.message; }
+});
+function logout(){ token=''; localStorage.removeItem('bl_token'); $('#appView').classList.add('hidden'); $('#loginView').classList.remove('hidden'); }
+$('#logout').addEventListener('click', logout);
+
+function showApp(){ $('#loginView').classList.add('hidden'); $('#appView').classList.remove('hidden'); loadAll(); }
+
+/* ---- ZAVIHKI ---- */
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');
+  document.querySelectorAll('[data-panel]').forEach(p=>p.classList.toggle('hidden', p.dataset.panel!==t.dataset.tab));
+}));
+
+/* ---- NALAGANJE ---- */
+async function loadAll(){ try{ await Promise.all([loadNast(), loadCene(), loadNovice(), loadAkcije()]); }catch(e){ toast(e.message,true); } }
+
+/* ---- NASTAVITVE ---- */
+async function loadNast(){
+  const d = await api('/api/admin/nastavitve');
+  ['ime_podjetja','email','telefon','naslov','urnik'].forEach(k=>{ const el=$('#n_'+k); if(el) el.value=d[k]||''; });
+}
+$('#saveNast').addEventListener('click', async ()=>{
+  try{
+    await api('/api/admin/nastavitve',{method:'PUT',body:JSON.stringify({
+      ime_podjetja:$('#n_ime_podjetja').value, email:$('#n_email').value, telefon:$('#n_telefon').value,
+      naslov:$('#n_naslov').value, urnik:$('#n_urnik').value })});
+    toast('Podatki shranjeni');
+  }catch(e){ toast(e.message,true); }
+});
+
+/* ---- CENE ---- */
+async function loadCene(){
+  const rows = await api('/api/admin/cene');
+  const wrap = $('#ceneWrap'); wrap.innerHTML='';
+  const byCat = {}; rows.forEach(r=>{ (byCat[r.kategorija]=byCat[r.kategorija]||[]).push(r); });
+  Object.keys(KAT).forEach(cat=>{
+    const head=document.createElement('div'); head.className='cat-head'; head.textContent=KAT[cat]; wrap.appendChild(head);
+    const tbl=document.createElement('table');
+    tbl.innerHTML='<thead><tr><th>Storitev</th><th style="width:130px">Cena</th><th style="width:90px">Enota</th><th style="width:70px">Vrstni red</th><th style="width:170px"></th></tr></thead><tbody></tbody>';
+    (byCat[cat]||[]).forEach(r=>tbl.querySelector('tbody').appendChild(cenaRow(r)));
+    wrap.appendChild(tbl);
+  });
+}
+function cenaRow(r){
+  const tr=document.createElement('tr'); tr.dataset.id=r.id||'';
+  tr.innerHTML=`<td><input class="c-ime" value="${esc(r.ime)}"></td>
+    <td><input class="c-cena" value="${esc(r.cena)}"></td>
+    <td><input class="c-enota" value="${esc(r.enota||'')}"></td>
+    <td><input class="c-sort" type="number" value="${r.sort||0}"></td>
+    <td><div style="display:flex;gap:6px;justify-content:flex-end">
+      <button class="btn btn-primary btn-sm c-save">Shrani</button>
+      <button class="btn btn-danger btn-sm c-del">Izbriši</button></div></td>`;
+  tr.querySelector('.c-save').addEventListener('click', async ()=>{
+    const body={ id:r.id, kategorija:r.kategorija, ime:tr.querySelector('.c-ime').value,
+      cena:tr.querySelector('.c-cena').value, enota:tr.querySelector('.c-enota').value, sort:+tr.querySelector('.c-sort').value };
+    try{ await api('/api/admin/cene',{method:r.id?'PUT':'POST',body:JSON.stringify(body)}); toast('Shranjeno'); loadCene(); }catch(e){ toast(e.message,true); }
+  });
+  tr.querySelector('.c-del').addEventListener('click', async ()=>{
+    if(!r.id){ tr.remove(); return; }
+    if(!confirm('Izbrišem to postavko?')) return;
+    try{ await api('/api/admin/cene?id='+r.id,{method:'DELETE'}); toast('Izbrisano'); loadCene(); }catch(e){ toast(e.message,true); }
+  });
+  return tr;
+}
+$('#addCena').addEventListener('click', ()=>{
+  const cat=prompt('Kategorija (tisk / vezava / dodelava):','tisk'); if(!cat||!KAT[cat]) return alert('Neveljavna kategorija.');
+  loadCene().then(()=>{ const tbls=$('#ceneWrap').querySelectorAll('table'); const idx=Object.keys(KAT).indexOf(cat);
+    tbls[idx].querySelector('tbody').appendChild(cenaRow({kategorija:cat,ime:'',cena:'',enota:'',sort:99})); });
+});
+
+/* ---- NOVICE ---- */
+async function loadNovice(){
+  const rows = await api('/api/admin/novice'); const wrap=$('#noviceWrap'); wrap.innerHTML='';
+  rows.forEach(r=>wrap.appendChild(novicaCard(r)));
+}
+function novicaCard(r){
+  const d=document.createElement('div'); d.className='card-item';
+  const datum=(r.datum||'').toString().slice(0,10);
+  d.innerHTML=`<div class="grid">
+      <div class="field"><label>Naslov</label><input class="x-naslov" value="${esc(r.naslov||'')}"></div>
+      <div class="field"><label>Datum</label><input class="x-datum" type="date" value="${datum}"></div>
+    </div>
+    <div class="field"><label>Vsebina</label><textarea class="x-vsebina">${esc(r.vsebina||'')}</textarea></div>
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <label style="display:flex;gap:8px;align-items:center;font-size:14px;font-weight:600"><input type="checkbox" class="x-obj" ${r.objavljeno!==false?'checked':''}> Objavljeno</label>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-primary btn-sm x-save">Shrani</button>
+        <button class="btn btn-danger btn-sm x-del">Izbriši</button>
+      </div></div>`;
+  d.querySelector('.x-save').addEventListener('click', async ()=>{
+    const body={ id:r.id, naslov:d.querySelector('.x-naslov').value, vsebina:d.querySelector('.x-vsebina').value,
+      datum:d.querySelector('.x-datum').value||null, objavljeno:d.querySelector('.x-obj').checked };
+    try{ await api('/api/admin/novice',{method:r.id?'PUT':'POST',body:JSON.stringify(body)}); toast('Shranjeno'); loadNovice(); }catch(e){ toast(e.message,true); }
+  });
+  d.querySelector('.x-del').addEventListener('click', async ()=>{
+    if(!r.id){ d.remove(); return; } if(!confirm('Izbrišem novico?')) return;
+    try{ await api('/api/admin/novice?id='+r.id,{method:'DELETE'}); toast('Izbrisano'); loadNovice(); }catch(e){ toast(e.message,true); }
+  });
+  return d;
+}
+$('#addNovica').addEventListener('click', ()=>$('#noviceWrap').prepend(novicaCard({objavljeno:true})));
+
+/* ---- AKCIJE ---- */
+async function loadAkcije(){
+  const rows = await api('/api/admin/akcije'); const wrap=$('#akcijeWrap'); wrap.innerHTML='';
+  rows.forEach(r=>wrap.appendChild(akcijaCard(r)));
+}
+function akcijaCard(r){
+  const d=document.createElement('div'); d.className='card-item';
+  const vd=(r.velja_do||'').toString().slice(0,10);
+  d.innerHTML=`<div class="grid">
+      <div class="field"><label>Naslov</label><input class="x-naslov" value="${esc(r.naslov||'')}"></div>
+      <div class="field"><label>Velja do (neobvezno)</label><input class="x-do" type="date" value="${vd}"></div>
+    </div>
+    <div class="field"><label>Opis</label><textarea class="x-opis">${esc(r.opis||'')}</textarea></div>
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <label style="display:flex;gap:8px;align-items:center;font-size:14px;font-weight:600"><input type="checkbox" class="x-akt" ${r.aktivno!==false?'checked':''}> Aktivno</label>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-primary btn-sm x-save">Shrani</button>
+        <button class="btn btn-danger btn-sm x-del">Izbriši</button>
+      </div></div>`;
+  d.querySelector('.x-save').addEventListener('click', async ()=>{
+    const body={ id:r.id, naslov:d.querySelector('.x-naslov').value, opis:d.querySelector('.x-opis').value,
+      velja_do:d.querySelector('.x-do').value||null, aktivno:d.querySelector('.x-akt').checked };
+    try{ await api('/api/admin/akcije',{method:r.id?'PUT':'POST',body:JSON.stringify(body)}); toast('Shranjeno'); loadAkcije(); }catch(e){ toast(e.message,true); }
+  });
+  d.querySelector('.x-del').addEventListener('click', async ()=>{
+    if(!r.id){ d.remove(); return; } if(!confirm('Izbrišem akcijo?')) return;
+    try{ await api('/api/admin/akcije?id='+r.id,{method:'DELETE'}); toast('Izbrisano'); loadAkcije(); }catch(e){ toast(e.message,true); }
+  });
+  return d;
+}
+$('#addAkcija').addEventListener('click', ()=>$('#akcijeWrap').prepend(akcijaCard({aktivno:true})));
+
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+/* zagon */
+if(token) showApp();
+</script>
+</body>
+</html>
