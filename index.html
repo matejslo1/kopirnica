@@ -36,14 +36,13 @@
   header.solid{background:rgba(255,255,255,.8);backdrop-filter:blur(14px);border-bottom-color:var(--line)}
   header.solid::after{opacity:1;background:linear-gradient(to bottom,rgba(255,255,255,.72),rgba(255,255,255,0))}
   nav{display:flex;align-items:center;justify-content:space-between;height:74px}
-  .logo{font-weight:800;font-size:20px;letter-spacing:-.02em;display:flex;align-items:center;gap:10px;color:#fff;transition:color .4s}
-  header.solid .logo{color:var(--ink)}
-  .logo .mark{width:32px;height:32px;flex-shrink:0;display:block}
-  .logo .mark svg{width:100%;height:100%;border-radius:9px;box-shadow:0 6px 16px rgba(45,91,255,.45);display:block}
-  .logo-text{font-family:'Inter',sans-serif;font-size:17px;font-weight:700;letter-spacing:-.3px;color:#fff;line-height:1.1}
-  .logo-text span{font-weight:800;font-size:19px}
-  header.solid .logo-text{color:var(--ink)}
-  .foot .logo-text{color:var(--ink)}
+  .logo{display:flex;align-items:center;transition:opacity .2s}
+  .logo:hover{opacity:.95}
+  .logo-img{height:38px;width:auto;display:block}
+  .logo .logo-dark-img{display:none}
+  .logo .logo-light-img{display:block}
+  header.solid .logo .logo-dark-img{display:block}
+  header.solid .logo .logo-light-img{display:none}
   .navlinks{display:flex;gap:32px;align-items:center}
   .navlinks a{font-size:15px;color:rgba(255,255,255,.8);font-weight:500;transition:color .25s;position:relative}
   header.solid .navlinks a{color:var(--muted)}
@@ -437,7 +436,10 @@
 <header id="hdr">
   <div class="wrap">
     <nav>
-      <a href="#" class="logo"><span class="logo-text">Fotokopirnica <span>CELJE</span></span></a>
+      <a href="#" class="logo">
+        <img src="slike/logo-light.webp" alt="Fotokopirnica Center Celje" class="logo-img logo-light-img">
+        <img src="slike/logo.webp" alt="Fotokopirnica Center Celje" class="logo-img logo-dark-img">
+      </a>
       <div class="navlinks">
         <a href="#storitve">Storitve</a>
         <a href="#galerija">Galerija</a>
@@ -456,7 +458,9 @@
 <div class="mobile-menu" id="mobileMenu">
   <div class="mm-panel">
     <div class="mm-top">
-      <a href="#" class="logo" style="color:var(--ink)"><span class="logo-text" style="color:var(--ink)">Fotokopirnica <span>CELJE</span></span></a>
+      <a href="#" class="logo">
+        <img src="slike/logo.webp" alt="Fotokopirnica Center Celje" class="logo-img">
+      </a>
       <button class="mm-close" id="menuClose" aria-label="Zapri meni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
     </div>
     <nav class="mm-links">
@@ -750,7 +754,9 @@
 
 <footer>
   <div class="wrap foot">
-    <a href="#" class="logo"><span class="logo-text">Fotokopirnica <span>CELJE</span></span></a>
+    <a href="#" class="logo">
+      <img src="slike/logo.webp" alt="Fotokopirnica Center Celje" class="logo-img">
+    </a>
     <div class="muted">Print center · Tisk, kopiranje, vezava, plastificiranje</div>
     <div class="muted">© 2026 Fotokopirnica Center Celje</div>
   </div>
