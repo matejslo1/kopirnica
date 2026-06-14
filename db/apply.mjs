@@ -16,7 +16,7 @@ console.log('✓ Tabele ustvarjene');
 
 // 2) Nastavitve (kontakt) — upsert
 const nast = {
-  ime_podjetja: 'Bela linija',
+  ime_podjetja: 'Fotokopirnica Center Celje',
   email: 'tisk@belalinija.si',
   telefon: '01 234 56 78',
   naslov: 'Glavna ulica 1, Vaše mesto',

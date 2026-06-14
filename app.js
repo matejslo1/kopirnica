@@ -45,7 +45,7 @@
       var maps = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(n.naslov);
       document.querySelectorAll('[data-mapbtn]').forEach(function(el){ el.setAttribute('href', maps); });
       var lbl = document.querySelector('.map .label');
-      if(lbl) lbl.textContent = (n.ime_podjetja || 'Bela linija') + ' · ' + n.naslov;
+      if(lbl) lbl.textContent = (n.ime_podjetja || 'Fotokopirnica Center Celje') + ' · ' + n.naslov;
     }
   }
 
