@@ -287,7 +287,7 @@
   }
   @media (max-width:560px){
     .quick-grid{grid-template-columns:1fr}
-    .services-grid{grid-template-columns:1fr}
+    .services-grid{grid-template-columns:repeat(2,1fr)}
     .gal-grid{grid-template-columns:1fr;grid-auto-rows:200px}
     .t-hero,.t-wide,.t-mid,.t-tall,.t-finish,.t-flyer{grid-column:span 1;grid-row:span 1}
     .steps{padding:44px 28px}
@@ -372,9 +372,11 @@
     .qcard h3{font-size:16px;margin-bottom:4px}
     .qcard p{font-size:13.5px}
     .services-grid{margin-top:26px;border-radius:14px}
-    .svc{padding:20px 18px}
-    .svc h3{font-size:15.5px}
-    .svc p{font-size:13.5px}
+    .svc{padding:16px 13px}
+    .svc .ico{width:34px;height:34px;border-radius:9px;margin-bottom:9px}
+    .svc .ico svg{width:19px;height:19px}
+    .svc h3{font-size:13.5px;line-height:1.25;margin-bottom:3px}
+    .svc p{font-size:11.5px;line-height:1.4}
 
     /* — galerija — */
     .gal-grid{grid-auto-rows:175px;gap:12px;margin-top:26px}
