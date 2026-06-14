@@ -17,7 +17,7 @@ console.log('✓ Tabele ustvarjene');
 // 2) Nastavitve (kontakt) — upsert
 const nast = {
   ime_podjetja: 'Fotokopirnica Center Celje',
-  email: 'info@fotokopirnicacelje.si',
+  email: 'tisk@fotokopirnicacelje.si',
   telefon: '01 234 56 78',
   naslov: 'Glavna ulica 1, Vaše mesto',
   urnik: 'Pon–Pet 8–18, Sob 8–12'
