@@ -33,7 +33,17 @@
       if(el.hasAttribute('data-tel')) el.setAttribute('href', 'tel:' + String(n[key]).replace(/\s+/g,''));
       if(key === 'email' && el.tagName === 'A') el.setAttribute('href', 'mailto:' + n[key]);
     });
+    // Akcijski gumbi — posodobimo le povezave (besedilo ostane).
+    if(n.telefon){
+      var tel = 'tel:' + String(n.telefon).replace(/\s+/g,'');
+      document.querySelectorAll('[data-callbtn]').forEach(function(el){ el.setAttribute('href', tel); });
+    }
+    if(n.email){
+      document.querySelectorAll('[data-mailbtn]').forEach(function(el){ el.setAttribute('href', 'mailto:' + n.email); });
+    }
     if(n.naslov){
+      var maps = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(n.naslov);
+      document.querySelectorAll('[data-mapbtn]').forEach(function(el){ el.setAttribute('href', maps); });
       var lbl = document.querySelector('.map .label');
       if(lbl) lbl.textContent = (n.ime_podjetja || 'Bela linija') + ' · ' + n.naslov;
     }
