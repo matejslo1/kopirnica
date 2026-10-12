@@ -7,11 +7,11 @@
     "db:apply": "node db/apply.mjs"
   },
   "dependencies": {
-    "@prisma/client": "^7.8.0",
+    "@prisma/client": "^7.10.0",
     "postgres": "^3.4.9"
   },
   "devDependencies": {
-    "prisma": "^7.8.0",
-    "sharp": "^0.35.1"
+    "prisma": "^7.10.0",
+    "sharp": "^0.35.5"
   }
 }
